@@ -9,12 +9,12 @@ var userGuess = [];
 var guessHistory;
 
 document.onkeyup = function(event){
-    var guessSoFar = event.key.toLowerCase;
+    var guessSoFar = event.key.toLowerCase();
 
     var computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.length)];
 
-    for (guessLeftText = 16; guessLeftText > 0; guessLeftText--) {
-        guessLeftText.textContent = guessLeft;
+    for (var i = 16; i > 0; i--) {
+        guessLeftText = i;
     } 
 
     for( var i = 1; i <=16; i++) {
@@ -28,7 +28,7 @@ document.onkeyup = function(event){
     if (guessSoFar === computerGuess && guessLeftText > 0) {
         wins++
         alert("Yay you guessed right! The computer guessed: " + computerGuess)
-    } else  if (guessSoFar != computer Guess && guessLeftText = 0) {
+    } else {
         losses++
         alert("Oh no! I'm sorry, the computer guessed: " + computerGuess)
     }
@@ -36,4 +36,5 @@ document.onkeyup = function(event){
     winsText.textContent = wins;
     lossesText.textContent = losses;
     UserGuessText.textContent = guessSoFar;
+    guessLeftText.textContent = guessLeft;
 }
