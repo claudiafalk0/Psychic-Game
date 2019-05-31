@@ -1,4 +1,7 @@
 body{
-    background-image: ../images/crystal.jpg;
+    background-image: url("../images/crystal.jpg");
     background-color: darkgray;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }

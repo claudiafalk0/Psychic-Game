@@ -6,42 +6,49 @@ var lossesText = document.getElementById("losses");
 var UserGuessText = document.getElementById("guessSoFar");
 var guessLeftText = document.getElementById("guessLeft");
 var userGuess = [];
-var guessHistory;
+var computerGuess;
+
+function resetGame(){
+    guessLeftText.textContent = 16;
+    userGuess = [];
+    UserGuessText.textContent = "";
+    guessCount = 0;
+    computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.length)];
+}
+    
+//Init game for first run
+window.onload = function() {
+    resetGame();
+}
 
 document.onkeyup = function(event){
     var guessSoFar = event.key.toLowerCase();
 
-    var computerGuess = computerChoices[Math.floor(Math.random()*computerChoices.length)];
-    
-    if (guessSoFar === guessHistory){
-        alert ("Please choose a different letter!");
-    } else {
+    if(computerChoices.indexOf(guessSoFar) > -1){
 
-        for (var i = 16; i > 0; i--) {
-            guessLeftText.textContent = i;
-        } 
-        
-        for( var k = 1; k <=16; k++) {
-            guessHistory = guessSoFar;
-            userGuess.push(guessHistory);
-        }
-        
-        for (var j = 0; j <userGuess.length; j++){
-            UserGuessText.textContent = userGuess[j];
-        }
-        
-        if (guessSoFar === computerGuess && guessLeftText > 0) {
-            wins++
-            alert("Yay you guessed right! The computer guessed: " + computerGuess)
+        if (userGuess.indexOf(guessSoFar) > -1){
+            alert ("Please choose a different letter!");
         } else {
-            losses++
-            alert("Oh no! I'm sorry, the computer guessed: " + computerGuess)
+            
+            userGuess.push(guessSoFar);
+            UserGuessText.textContent = userGuess.join();
+            guessLeftText.textContent = 16 - userGuess.length;
+            
+            if (guessSoFar === computerGuess && userGuess.length < 16) {
+                wins++;
+                winsText.textContent = wins;
+                alert("Yay you guessed right! The computer guessed: " + computerGuess);
+                resetGame();
+            } else if (guessSoFar != computerGuess && userGuess.length === 16) {
+                losses++;
+                lossesText.textContent = losses;
+                alert("Oh no! I'm sorry, the computer guessed: " + computerGuess);
+                resetGame();
+            }
+            
         }
+    }else if (guessSoFar != "f5"){
+        alert("please choose a valid key between A-Z");
     }
-
-    
-    
-
-    winsText.textContent = wins;
-    lossesText.textContent = losses;
+        
 }
